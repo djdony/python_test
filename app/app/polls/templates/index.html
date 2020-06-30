@@ -1,0 +1,67 @@
+{% extends 'layout/base.html' %}
+{% block content %}
+      <div class="container">
+        <div class="row">
+          &emsp;
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Опрос</th>
+                <th scope="col">Дата Начала</th>
+                <th scope="col">Дата Окончания</th>
+                <th scope="col">Действие</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="Poll in Polls">
+                <th scope="row">${Poll.id}</th>
+                <td>${Poll.title}</td>
+                <td>${Poll.date_start}</td>
+                <td>${Poll.date_end}</td>
+                <td>
+                        <a :href="'/polls/'+ Poll.id">
+      Пройти опрос
+    </a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="loading" v-if="loading===true">Loading&#8230;</div>
+
+    </div>
+
+
+  <script type="text/javascript">
+    Vue.http.headers.common['X-CSRFToken'] = "{{ csrf_token }}";
+    new Vue({
+      el: '#app',
+      delimiters: ['${', '}'],
+      data: {
+        Polls: [],
+        loading: true,
+        message: null,
+      },
+      mounted: function() {
+        this.getPolls();
+      },
+      methods: {
+        getPolls: function() {
+          let api_url = '/api/polls/';
+          this.loading = true;
+          this.$http.get(api_url)
+              .then((response) => {
+                this.Polls = response.data;
+                this.loading = false;
+              })
+              .catch((err) => {
+                this.loading = false;
+                console.log(err);
+              })
+        },
+      }
+    });
+  </script>
+{%endblock%}

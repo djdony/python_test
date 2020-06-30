@@ -21,4 +21,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include('polls.urls')),
     path('', TemplateView.as_view(template_name='index.html')),
+    path('polls/<int:polls_id>', TemplateView.as_view(template_name='poll.html')),
 ]

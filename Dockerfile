@@ -13,8 +13,5 @@ RUN pip install -r /requirements.txt
 RUN mkdir /app
 WORKDIR /app
 
-RUN adduser dony
-USER dony
-
 # Copy project
 COPY ./app/ /app

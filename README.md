@@ -14,9 +14,6 @@ docker-compose run app sh -c "app/manage.py createsuperuser"
 ### Run Project
 docker-compose up
 
-http://127.0.0.1:8000/admin/  
-username : admin  
-password : tez
 
 
 ### Undone / TODO
